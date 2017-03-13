@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Reepay JS simple example</title>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/app.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
+    <meta name="viewport" content="initial-scale=1">
+</head>
+
+<body>
+
+    <div class="container-fluid" style="max-width: 500px">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default paybox">
+                    <img src="images/logo.png" width="100%">
+                    <div class="panel-body belt">
+                        <div class="pull-left beltelements">
+                            <h4>Company inc.</h4>
+                        </div>
+                        <div class="pull-right beltelements">
+                            <h4><span class="label label-info">$ 20.99/ month</span></h4>
+                        </div>
+                    </div>
+                    <div class="card-wrapper clearfix"></div>
+                    <div class="panel-body">
+                        <form id="form1">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <label>Firstname</label>
+                                        <!---
+                                          Example of custom application needed data. This data could already exist in the backend, and is not always required
+                                        !--->
+                                        <input class="form-control" type="text" name="first_name"/>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <label>Lastname</label>
+                                        <!---
+                                          Example of custom application needed data. This data could already exist in the backend, and is not always required
+                                        !--->
+                                        <input class="form-control" type="text" name="last_name"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <label>Credit Card Number</label>
+                                        <!--
+                                        The `data-reepay="cardnumber"` tells reepay.js that this contantains the cardnumber.
+                                        No name attribute is added, this secure that the PAN is not send to the backend server together with the request.
+                                        !-->
+                                        <input placeholder="" class="form-control" type="text" data-reepay="number" id="number" style="padding-left:60px;">
+                                        <span class="card-icon icon-card__generic"></span>
+                                        <span class="glyphicon glyphicon-lock lock-icon"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <label>Exp. month</label>
+                                        <!--
+                                        The `data-reepay="month"` tells reepay.js that this contantains the card expiry month.
+                                        !-->
+                                        <input class="form-control" type="text" data-reepay="month" id="month" />
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <label>Exp. year</label>
+                                        <!--
+                                        The `data-reepay="year"` tells reepay.js that this contantains the card expiry year.
+                                        !-->
+                                        <input class="form-control" type="text" data-reepay="year" id="year" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <label>CVC</label>
+                                        <!--
+                                        The `data-reepay="cvv"` tells reepay.js that this contantains the card cvv.
+                                        !-->
+                                        <input class="form-control" type="text" data-reepay="cvv" id="cvv" />
+                                    </div>
+                                </div>
+                            </div>
+                            <!--
+                            This field `data-reepay="token"` will automaticly be filled out for the backend to use, after reepay.token has been called and a card token has been created.
+                            !-->
+                            <input type="hidden" name="token" data-reepay="token">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <button type="submit" class="btn btn-success pull-right" style="width:100%;margin-top:15px;">Sign up</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://js.reepay.com/v1/reepay.min.js"></script>
+    <script>
+        reepay.configure('{{PUBLIC_KEY}}');
+
+        // Format and show the cardnumber in a more user friendly way
+        reepay.validate.formatCardNumber("#number", function (str) {
+
+          // The cardtype is returned and can be visualized
+            if ((str.type == 'default') || (str.type == 'unknown')) {
+                $('.card-icon').addClass('icon-card__generic');
+                $('.card-icon').removeClass('icon-card__visa icon-card__mastercard icon-card__amex icon-card__visa discover');
+            } else {
+                $('.card-icon').removeClass('icon-card__generic icon-card__visa icon-card__mastercard icon-card__amex icon-card__visa discover');
+                $('.card-icon').addClass('icon-card__' + str.type);
+            }
+
+        });
+
+
+        $('#form1').on('submit', function (event) {
+
+          // Prevent the form's default action, so that this can be handled after a token has been created.
+            event.preventDefault();
+
+            // Validate if the cardnumber's format is valid before posting
+            if(!reepay.validate.cardNumber($("#number").val())){
+              alert("Card number is invalid");
+              return;
+            }
+
+            // Validate if the expiry date's format is valid before posting
+            if(!reepay.validate.expiry($("#month").val(),$("#year").val())){
+              alert("expiry date is invalid");
+              return;
+            }
+
+            // Validate if the cvv's format is valid before posting
+            if(!reepay.validate.cvv($("#cvv").val())){
+              alert("CVV is invalid");
+              return;
+            }
+
+
+            var form = this;
+
+            // Create a token using the form data. This is not a synchronous operation,
+            // so a callback function is required to handle the error and submit the form
+            reepay.token(form, function (err, token) {
+
+                if (err) {
+                  // The error object and values are decribed in the documentation `https://docs.reepay.com/js/#errors`
+                  alert("Error: " + err)
+                   console.log(err);
+                    // handle error using err.code and err.fields
+                } else {
+                  // A token has been returned. The field with attribute `data-reepay="token"` has automaticly been filled out with the token
+                  alert("Token generated: " + token)
+                  console.log("Token generated: " + token);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
