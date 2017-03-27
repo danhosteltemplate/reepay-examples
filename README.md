@@ -15,3 +15,5 @@ Single HTML page demonstrating the use of the Reepay Javascript Library.
 [`reepay-api-examples`](reepay-api-examples)
 
 Simple Java example creating a subscription and creating charges.
+
+## Subscription example
