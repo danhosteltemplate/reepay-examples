@@ -161,7 +161,7 @@
                             expiry: '**/**',
                             cvc: '***'
                         }
-                    });
+                    }); 
 
                     var locale = "en_GB";
 
