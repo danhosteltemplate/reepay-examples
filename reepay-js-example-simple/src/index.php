@@ -35,7 +35,7 @@
                             </div>
                         </div>
                         <br/>
-                        <form id="paymentform" role="form" method="post" url="signup.php">
+                        <form id="paymentform" role="form" method="post" type="submit" action="signup.php">
                             <article class="media" id="paymentinfo">
                                 <h4>Personal information</h4>
 
@@ -312,7 +312,7 @@
                         }
                     });
 
-                    reepay.configure("{{PUBLIC_KEY}}");
+                    reepay.configure("1{{PUBLIC_KEY}}");
 
                     $('#paymentform').on('submit', function(event) {
                         var form = this;

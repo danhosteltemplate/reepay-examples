@@ -10,7 +10,7 @@ Docker and Docker Compose ([Docker Toolbox](https://www.docker.com/products/dock
 
 ## Running
 
-1. Define the public key by substituting `{{PUBLIC_KEY}}'` in `index.php`. A public key can be found/generated in the Reepay Administration under Developer -> API credentials.
+1. Define the public key by substituting `{{PUBLIC_KEY}}` in `index.php`. A public key can be found/generated in the Reepay Administration under Developer -> API credentials.
 
 2. Run a containerized web server using Docker Compose:
 
