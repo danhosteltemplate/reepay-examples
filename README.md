@@ -8,7 +8,7 @@ The [Wiki](https://github.com/reepay/reepay-examples/wiki) gives some common use
 
 [`reepay-js-example-simple`](reepay-js-example-simple)
 
-Single HTML page demonstrating the use of the Reepay Javascript Library.
+Simple example showing the use of the Reepay Javascript library to make a sign-up page.
 
 ## API examples
 
