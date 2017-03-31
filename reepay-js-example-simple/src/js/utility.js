@@ -4,11 +4,15 @@ function ReepayUtils(valSettings){
 	// Everything but the parameter object and the functions in the return block is private
 	// 
 	self.validationSettings = {
-		cvvField: "",
-		cardnumberField: "",
-		expiryField: "",
-		inputClass: "",
+		cvvField: "#cvv",
+		cardnumberField: "#cardnumber",
+		expiryField: "#expiry",
+		inputClass: ".customer_info",
+		termsId: "#terms",
+		formId: "#paymentform",
 		checkEmail: true,
+		submitProcess: false,
+		locale: "en_GB"
 	};
 	$.extend( self.validationSettings, valSettings );
 
@@ -66,7 +70,9 @@ function ReepayUtils(valSettings){
 	self.validateCardnumber = function(cardnumberField){
 		$(cardnumberField).blur(function() {
             $('#error').hide();
-            if (!reepay.validate.cardNumber($('#cardnumber').val())) {
+            if (!reepay.validate.cardNumber($(cardnumberField).val())) {
+            	//This can be chamged to how you wish to do with the validation of the cardnumberField
+
                 if ($('#form-group-cardnumber').hasClass("has-success")) {
                     $('#form-group-cardnumber').toggleClass("has-success");
                 }
@@ -83,6 +89,58 @@ function ReepayUtils(valSettings){
             }
         });
 	};
+	self.validateExpiry = function(expiryField){
+        $(expiryField).blur(function() {
+            var exp = $(expiryField).val().replace(/\s/g, '').split("/");
+            if (!reepay.validate.expiry(exp[0], exp[1])) {
+            	//This can be chamged to how you wish to do with the validation of the cardnumberField
+                if ($('#form-group-exp').hasClass("has-success")) {
+                    $('#form-group-exp').toggleClass("has-success");
+                }
+                if (!$('#form-group-exp').hasClass("has-error")) {
+                    $('#form-group-exp').toggleClass("has-error");
+                }
+            } else {
+                if ($('#form-group-exp').hasClass("has-error")) {
+                    $('#form-group-exp').toggleClass("has-error");
+                }
+                if (!$('#form-group-exp').hasClass("has-success")) {
+                    $('#form-group-exp').toggleClass("has-success");
+                }
+            }
+        });
+    };
+    self.validateCvv = function(cvvField){
+    	$(cvvField).blur(function() {
+            if (!reepay.validate.cvv($(cvvField).val())) {
+            	//This can be changed to how you wish to do with the validation of the cardnumberField
+                if ($('#form-group-cvc').hasClass("has-success")) {
+                    $('#form-group-cvc').toggleClass("has-success");
+                }
+                if (!$('#form-group-cvc').hasClass("has-error")) {
+                    $('#form-group-cvc').toggleClass("has-error");
+                }
+            } else {
+                if ($('#form-group-cvc').hasClass("has-error")) {
+                    $('#form-group-cvc').toggleClass("has-error");
+                }
+                if (!$('#form-group-cvc').hasClass("has-success")) {
+                    $('#form-group-cvc').toggleClass("has-success");
+                }
+            }
+        });
+	}
+	self.validateTerms = function(termsId){
+		$(termsId).change(function() {
+            if (this.checked) {
+                $("#terms-group").removeClass("has-error");
+                $("#terms-group").addClass("has-success");
+            } else {
+                $("#terms-group").removeClass("has-success");
+                $("#terms-group").addClass("has-error");
+            }
+        });
+	}
 
 	// The public validate function
 	self.validate = function(settings){
@@ -90,7 +148,7 @@ function ReepayUtils(valSettings){
 
 		if(settings.checkEmail){
 			$("input[name=email]").blur(function() {
-			    if (!isEmail($(this).val())) {
+			    if (!self.isEmail($(this).val())) {
 			        $(this).parent().removeClass("has-success");
 			        $(this).parent().addClass("has-error");
 			    } else {
@@ -102,7 +160,80 @@ function ReepayUtils(valSettings){
 		}
 		self.validateCustomer(settings.inputClass);
 		self.validateCardnumber(settings.cardnumberField);
+		self.validateExpiry(settings.expiryField);
+		self.validateCvv(settings.cvvField);
 	}
+
+	self.submitForm = function(settings){
+		$(settings.formId).on('submit', function(event) {
+            var form = this;
+            event.preventDefault();
+
+            // Validate Customer
+            if (!self.validateCustomer(settings.inputClass)) {
+                //Show some kind of error here
+                $('#customer_error_headline').html("Wrong information");
+                $('#customer_error_message').html("Please fill in correct information");
+                $("#customer_error").show();
+
+                return;
+            }
+            $("#customer_error").hide();
+
+
+            // Create customer object
+            // This is possibly not necessary
+            // var customer = getCustomer();
+
+
+            var exp = $(settings.expiryField).val().replace(/\s/g, '').split("/");
+
+            // alternatively..
+            var paymentinfo = {
+                // TODO: the name must be cardnumber not only number. Server supports number fix.
+                number: $(settings.cardnumberField).val(),
+                month: exp[0],
+                year: exp[1],
+                cvv: $(settings.cvvField).val()
+            };
+
+            reepay.validate.cardNumber(paymentinfo['cardnumber']);
+
+            var $btn = $('#savebutton').button('loading');
+
+            if (!$(settings.termsId)[0].checked) {
+                $("#terms-group").addClass("has-error");
+
+                $('#error_headline').html("Accept terms");
+                $('#error_message').html("Remember to accept terms");
+                $('#error').show();
+
+                $btn.button('reset');
+                return;
+            }
+
+            reepay.token(paymentinfo, function(err, token) {
+                if (err) {
+                    console.log("An error happened: code: " + err.code + " message: " + err.message);
+                    var errText = interpretError(err, settings.locale);
+                    var headline = errText.headline;
+                    var message = errText.message;
+
+                    $('#error_headline').html(headline);
+                    if (err.fields) {
+                        message = message + err.fields;
+                    }
+                    $('#error_message').html(message);
+                    $('#error').show();
+                    $btn.button('reset');
+                } else {
+
+                    $("[data-reepay=token]").val(token.id);
+                     form.submit();
+                }
+            });
+		});
+	};
 
 
 
@@ -111,6 +242,9 @@ function ReepayUtils(valSettings){
 		//Validates input with the given settings in the constructor
 		validate: function(){
 			self.validate(self.validationSettings);
+		},
+		reepaySubmit: function(){
+			self.submitForm(self.validationSettings);
 		}
 	}
 }
