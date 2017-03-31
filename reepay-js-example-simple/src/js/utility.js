@@ -1,4 +1,4 @@
-function reepay_utils(valSettings){
+function ReepayUtils(valSettings){
 	var self = this;
 	// Settings which can extend/overwrite defaults by parsing an object as a parameter
 	// Everything but the parameter object and the functions in the return block is private
@@ -10,7 +10,7 @@ function reepay_utils(valSettings){
 		inputClass: "",
 		checkEmail: true,
 	};
-	$.extend( validationSettings, valSettings );
+	$.extend( self.validationSettings, valSettings );
 
 	// Validating tha all required input fields are filled out
 	self.validateInput = function(inputName){
@@ -110,7 +110,7 @@ function reepay_utils(valSettings){
 	return {
 		//Validates input with the given settings in the constructor
 		validate: function(){
-			self.validate(validationSettings);
+			self.validate(self.validationSettings);
 		}
 	}
 }
