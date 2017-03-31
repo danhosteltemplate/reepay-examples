@@ -166,12 +166,13 @@
                 cvc: '***'
             }
 		});
+        rep = reepay_utils({
+            inputClass: ".customer_info",
+            cardnumberField: "#cardnumber"
+        });
 
-		reepay_util.validate(".customer_info");
-		reepay_util.generate({
-			firstName: false
-		});
-		console.log(reepay_util.form.settings.fields);
+        rep.validate();
+		
 
 	</script>
 </body>
