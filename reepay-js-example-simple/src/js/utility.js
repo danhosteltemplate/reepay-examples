@@ -1,8 +1,10 @@
+
+$.getScript("js/texts.js");
+
 function ReepayUtils(valSettings){
 	var self = this;
-	// Settings which can extend/overwrite defaults by parsing an object as a parameter
-	// Everything but the parameter object and the functions in the return block is private
-	// 
+	// Settings which can extend/overwrite defaults by parsing an object as a parameter. See the HTML for example
+	// Everything but the functions in the return block is private
 	self.validationSettings = {
 		cvvField: "#cvv",
 		cardnumberField: "#cardnumber",
@@ -16,7 +18,7 @@ function ReepayUtils(valSettings){
 	};
 	$.extend( self.validationSettings, valSettings );
 
-	// Validating tha all required input fields are filled out
+	// Validating that all required input fields are filled out
 	self.validateInput = function(inputName){
 		$(inputName).each(function() {
 		    if ($(this).attr('required')) {
@@ -37,13 +39,13 @@ function ReepayUtils(valSettings){
 		});
 	}
 
-	//Check if the email fits the standard emai format
+	// Check if the email fits the standard emai format
 	self.isEmail = function(email) {
 	    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 	    return regex.test(email);
 	}
 
-	//Validate that the customer info fields has been filled out
+	// Validate that the customer info fields has been filled out
 	self.validateCustomer = function(inputName) {
 	    var status = true;
 
@@ -71,7 +73,7 @@ function ReepayUtils(valSettings){
 		$(cardnumberField).blur(function() {
             $('#error').hide();
             if (!reepay.validate.cardNumber($(cardnumberField).val())) {
-            	//This can be chamged to how you wish to do with the validation of the cardnumberField
+            	// This can be chamged to how you wish to do with the validation of the cardnumberField
 
                 if ($('#form-group-cardnumber').hasClass("has-success")) {
                     $('#form-group-cardnumber').toggleClass("has-success");
@@ -93,7 +95,7 @@ function ReepayUtils(valSettings){
         $(expiryField).blur(function() {
             var exp = $(expiryField).val().replace(/\s/g, '').split("/");
             if (!reepay.validate.expiry(exp[0], exp[1])) {
-            	//This can be chamged to how you wish to do with the validation of the cardnumberField
+            	// This can be chamged to how you wish to do with the validation of the cardnumberField
                 if ($('#form-group-exp').hasClass("has-success")) {
                     $('#form-group-exp').toggleClass("has-success");
                 }
@@ -113,7 +115,7 @@ function ReepayUtils(valSettings){
     self.validateCvv = function(cvvField){
     	$(cvvField).blur(function() {
             if (!reepay.validate.cvv($(cvvField).val())) {
-            	//This can be changed to how you wish to do with the validation of the cardnumberField
+            	// This can be changed to how you wish to do with the validation of the cardnumberField
                 if ($('#form-group-cvc').hasClass("has-success")) {
                     $('#form-group-cvc').toggleClass("has-success");
                 }
@@ -132,6 +134,7 @@ function ReepayUtils(valSettings){
 	}
 	self.validateTerms = function(termsId){
 		$(termsId).change(function() {
+            // Check if terms has been accepted. This can be changed to how you wish to handle the errors. 
             if (this.checked) {
                 $("#terms-group").removeClass("has-error");
                 $("#terms-group").addClass("has-success");
@@ -171,7 +174,7 @@ function ReepayUtils(valSettings){
 
             // Validate Customer
             if (!self.validateCustomer(settings.inputClass)) {
-                //Show some kind of error here
+                // Show some kind of error here
                 $('#customer_error_headline').html("Wrong information");
                 $('#customer_error_message').html("Please fill in correct information");
                 $("#customer_error").show();
@@ -180,18 +183,12 @@ function ReepayUtils(valSettings){
             }
             $("#customer_error").hide();
 
-
-            // Create customer object
-            // This is possibly not necessary
-            // var customer = getCustomer();
-
-
             var exp = $(settings.expiryField).val().replace(/\s/g, '').split("/");
 
             // alternatively..
             var paymentinfo = {
                 // TODO: the name must be cardnumber not only number. Server supports number fix.
-                number: $(settings.cardnumberField).val(),
+                cardnumber: $(settings.cardnumberField).val(),
                 month: exp[0],
                 year: exp[1],
                 cvv: $(settings.cvvField).val()
@@ -202,6 +199,7 @@ function ReepayUtils(valSettings){
             var $btn = $('#savebutton').button('loading');
 
             if (!$(settings.termsId)[0].checked) {
+                // This should be changed to suit your needs and your HTML
                 $("#terms-group").addClass("has-error");
 
                 $('#error_headline').html("Accept terms");
@@ -213,6 +211,8 @@ function ReepayUtils(valSettings){
             }
 
             reepay.token(paymentinfo, function(err, token) {
+                // Handle token error and success here. This is just an example.
+                // Should be changed to suit your needs and your HTML.
                 if (err) {
                     console.log("An error happened: code: " + err.code + " message: " + err.message);
                     var errText = interpretError(err, settings.locale);
@@ -227,9 +227,8 @@ function ReepayUtils(valSettings){
                     $('#error').show();
                     $btn.button('reset');
                 } else {
-
                     $("[data-reepay=token]").val(token.id);
-                     form.submit();
+                    	form.submit();
                 }
             });
 		});
@@ -239,7 +238,7 @@ function ReepayUtils(valSettings){
 
 	// Public to call
 	return {
-		//Validates input with the given settings in the constructor
+		// Validates input with the given settings in the constructor
 		validate: function(){
 			self.validate(self.validationSettings);
 		},
@@ -248,11 +247,3 @@ function ReepayUtils(valSettings){
 		}
 	}
 }
-
-
-
-function test() {
-
-}
-
-

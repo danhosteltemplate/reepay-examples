@@ -147,7 +147,7 @@
     <script src="/js/button.js"></script>
     <script src="/js/jquery.card.js"></script>
     <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/texts.js"></script>
+    <!--<script src="/js/texts.js"></script>-->
     <script src="https://js.reepay.com/v1/reepay.js"></script>
     <script type="text/javascript" src="js/utility.js"></script>
 	
@@ -166,12 +166,20 @@
                 cvc: '***'
             }
 		});
-        rep = reepay_utils({
-            inputClass: ".customer_info",
-            cardnumberField: "#cardnumber"
-        });
+        // Configure the Reepay library with your public key. 
+        reepay.configure("PUBLIC_KEY");
 
+        // Make a new ReepayUtils object with your desired settings
+        var rep = new ReepayUtils({
+            inputClass: ".customer_info",
+            cardnumberField: "#cardnumber",
+            expiryField: "#expiry",
+            cvvField: "#cvc"
+        });
+        // Validate that everything has been filled out correctly.
         rep.validate();
+        // Handles the submission of the form. 
+        rep.reepaySubmit();
 		
 
 	</script>
