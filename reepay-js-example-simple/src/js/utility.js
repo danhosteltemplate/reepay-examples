@@ -188,13 +188,13 @@ function ReepayUtils(valSettings){
             // alternatively..
             var paymentinfo = {
                 // TODO: the name must be cardnumber not only number. Server supports number fix.
-                cardnumber: $(settings.cardnumberField).val(),
+                number: $(settings.cardnumberField).val(),
                 month: exp[0],
                 year: exp[1],
                 cvv: $(settings.cvvField).val()
             };
 
-            reepay.validate.cardNumber(paymentinfo['cardnumber']);
+            reepay.validate.cardNumber(paymentinfo['number']);
 
             var $btn = $('#savebutton').button('loading');
 
@@ -213,6 +213,7 @@ function ReepayUtils(valSettings){
             reepay.token(paymentinfo, function(err, token) {
                 // Handle token error and success here. This is just an example.
                 // Should be changed to suit your needs and your HTML.
+                console.log(token)
                 if (err) {
                     console.log("An error happened: code: " + err.code + " message: " + err.message);
                     var errText = interpretError(err, settings.locale);

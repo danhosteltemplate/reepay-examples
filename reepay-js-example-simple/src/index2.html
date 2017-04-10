@@ -6,9 +6,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Reepay sign-up page example</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/app.css">
     
 </head>
 <body>
@@ -143,11 +143,11 @@
 		</div>
 
 	</div>
-	<script src="/js/jquery.min.js"></script>
-    <script src="/js/button.js"></script>
-    <script src="/js/jquery.card.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <!--<script src="/js/texts.js"></script>-->
+	<script src="js/jquery.min.js"></script>
+    <script src="js/button.js"></script>
+    <script src="js/jquery.card.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/texts.js"></script>
     <script src="https://js.reepay.com/v1/reepay.js"></script>
     <script type="text/javascript" src="js/utility.js"></script>
 	
@@ -167,7 +167,7 @@
             }
 		});
         // Configure the Reepay library with your public key. 
-        reepay.configure("PUBLIC_KEY");
+        reepay.configure("pub_4340532086bc46daa3da974c3840e292");
 
         // Make a new ReepayUtils object with your desired settings
         var rep = new ReepayUtils({
@@ -180,7 +180,6 @@
         rep.validate();
         // Handles the submission of the form. 
         rep.reepaySubmit();
-		
 
 	</script>
 </body>
