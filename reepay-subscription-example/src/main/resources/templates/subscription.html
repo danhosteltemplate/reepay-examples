@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Subscription</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <div th:replace="fragments/navigation :: 'navbar'"></div>
+        </div>
+        <div class="col-md-2 col-md-offset-4 text-right">
+            <div th:replace="fragments/logout :: 'logout'"></div>
+        </div>
+    </div>
+    <div class="row top-buffer">
+        <div class="col-md-4 col-md-offset-4">
+            <table class="table">
+                <tr>
+                    <td>Subscription handle</td>
+                    <td><a th:href="'/invoices/' + ${subscription.handle}" th:text="${subscription.handle}"></a></td>
+                </tr>
+                <tr>
+                    <td>Plan Handle</td>
+                    <td th:text="${subscription.plan}"></td>
+                </tr>
+                <tr>
+                    <td>Plan name</td>
+                    <td th:text="${plan.name}"></td>
+                </tr>
+                <tr>
+                    <td>Plan description</td>
+                    <td th:text="${plan.description != null} ? ${plan.description} : 'No description'"></td>
+                </tr>
+                <tr>
+                    <td>Subscription quantity</td>
+                    <td th:text="${subscription.quantity}"></td>
+                </tr>
+                <tr>
+                    <td>Subscription amount</td>
+                    <td th:text="${subscription.amount}"></td>
+                </tr>
+                <tr>
+                    <td>Status</td>
+                    <td th:text="${subscription.cancelled} ? 'Cancelled' : 'Active'"></td>
+                </tr>
+                <tr th:switch="${subscription.cancelled}">
+                    <td><a th:case="false" th:href="'/unsubscribe/' + ${subscription.handle}" class="btn btn-danger">Unsubscribe</a></td>
+
+                    <td><a th:case="true" th:href="'/resubscribe/' + ${subscription.handle}" class="btn btn-success">Resubscribe</a></td>
+                </tr>
+            </table>
+            <form th:action="@{/coupon/activate/{handle}(handle=${subscription.handle})}" th:object="${coupon}" method="POST">
+                <input type="text" th:field="*{code}" placeholder="Coupon code" />
+                <input type="hidden" name="plan" th:value="${subscription.plan}" />
+                <input type="hidden" name="customer" th:value="${customer.handle}" />
+                <input type="submit" class="btn btn-success"/>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

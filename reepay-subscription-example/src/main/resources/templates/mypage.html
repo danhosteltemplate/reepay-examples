@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Reepay - My page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/css/app.css" />
+
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <div th:replace="fragments/navigation :: 'navbar'"></div>
+        </div>
+        <div class="col-md-2 col-md-offset-4 text-right">
+            <div th:replace="fragments/logout :: 'logout'"></div>
+        </div>
+    </div>
+    <div class="row top-buffer">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="error">
+                <p th:text="${errorMsg}"></p>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <p th:text="'Hello ' + ${customer.firstName}"></p>
+                </div>
+
+            </div>
+            <h4>Subscriptions</h4>
+            <table class="table">
+                <tr>
+                    <th>Handle</th>
+                    <th>State</th>
+                    <th>Status</th>
+                </tr>
+
+                <tr th:each="subscription : ${subscriptions}">
+                    <td><a th:href="'/subscription/' + ${subscription.handle}"><p th:text="${subscription.handle}"></p></a></td>
+                    <td th:text="${subscription.state}"></td>
+                    <td th:text="${subscription.cancelled} ? 'Cancelled' : 'Active'"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

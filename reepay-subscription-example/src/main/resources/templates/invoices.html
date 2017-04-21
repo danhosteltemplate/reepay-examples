@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Invoices</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <div th:replace="fragments/navigation :: 'navbar'"></div>
+        </div>
+        <div class="col-md-2 col-md-offset-4 text-right">
+            <div th:replace="fragments/logout :: 'logout'"></div>
+        </div>
+    </div>
+    <div class="row top-buffer">
+        <div class="col-md-4 col-md-offset-4">
+            <table class="table">
+                <tr>
+                    <th>Status</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Due</th>
+                    <th>Settled</th>
+                </tr>
+                <tr th:each="invoice : ${invoices}" th:switch="${invoice.type}">
+                    <td th:text="${invoice.state}"></td>
+                    <td th:case="'s'">Recurring</td>
+                    <td th:case="'so'">One-time subscription</td>
+                    <td th:case="'soi'">One-time subscription instant</td>
+                    <td th:case="'co'">One-time</td>
+                    <td th:case="'ch'">Charge</td>
+                    <td th:text="${invoice.amount} / 100 + ' ' + ${invoice.currency}"></td>
+                    <td th:text="${invoice.due}"></td>
+                    <td th:text="${invoice.settled}"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-2 main">
+            <div th:each="card, iter : ${cards}" th:classappend="${iter.index} == 0 ? 'top-border'" class="payment-method-box row">
+                <div class="pull-left capitalize inner-box">
+                    <img th:src="@{/images/icons/card_Visa_53x33.png}" class="pull-left img-responsive img-rounded"/>
+                    <span th:text="${card.maskedCard}"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

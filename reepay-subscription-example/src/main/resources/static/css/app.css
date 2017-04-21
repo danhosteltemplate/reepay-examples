@@ -1,0 +1,105 @@
+.paybox {
+    margin-top: 25px;
+}
+
+.belt {
+    height: 80px;
+    background-color: #55889d;
+    color: #fff;
+}
+
+.beltelements {
+    margin: 5px;
+}
+
+.card-wrapper {
+    margin-top: 42px;
+}
+
+form {
+    margin: 20px 35px 100px 35px;
+}
+
+.jp-card-container {
+    zoom: 0.8;
+}
+
+.card-icon {
+    position: absolute;
+    top: 30px;
+    left: 26px;
+    height: 24px;
+    width: 39px;
+    z-index: 10;
+}
+
+.icon-card__generic {
+    background: url("/images/icons/card-generic.png") top left no-repeat;
+    background-size: 39px 24px;
+}
+
+.icon-card__visa {
+    background: url('/images/icons/card_Visa_53x33.png') top left no-repeat;
+    background-size: 39px 24px;
+}
+
+.icon-card__dankort {
+    background: url('/images/icons/card_Dankort_53x33.png') top left no-repeat;
+    background-size: 39px 24px;
+}
+
+.icon-card__amex {
+    background: url('/images/icons/card-amex.png') top left no-repeat;
+    background-size: 39px 24px;
+}
+
+.icon-card__discover {
+    background: url('/images/icons/card-discover.png') top left no-repeat;
+    background-size: 39px 24px;
+}
+
+.icon-card__mastercard {
+    background: url('/images/icons/card-mastercard.png') top left no-repeat;
+    background-size: 39px 24px;
+}
+
+.lock-icon {
+    position: absolute;
+    top: 35px;
+    right: 3px;
+    height: 21px;
+    width: 39px;
+    z-index: 10;
+    float: right;
+    color: lightgray;
+}
+
+.top-buffer {
+    margin-top:60px;
+}
+
+.payment-method-box {
+        border: 1px solid #d3d3d3;
+        margin-left: 15px;
+        margin-right: 15px;
+        border-top: 0;
+        cursor: pointer;
+        padding-top: 4px;
+        padding-bottom: 4px;
+}
+
+.payment-method-box .inner-box span {
+    position: relative;
+    top: 3px;
+    left: 8px;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.top-border {
+    border-top: 1px solid #d3d3d3
+}
+
+.logout {
+    margin-top: 10px;
+}

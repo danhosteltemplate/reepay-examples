@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <div th:replace="fragments/navigation :: 'navbar'"></div>
+        </div>
+        <div class="col-md-2 col-md-offset-4 text-right">
+            <div th:replace="fragments/logout :: 'logout'"></div>
+        </div>
+    </div>
+    <div class="row top-buffer">
+        <div class="col-md-2 col-md-offset-5">
+            <a class="btn btn-primary btn-block" href="/register">Signups</a>
+
+            <a class="btn btn-primary btn-block" href="/customers">Registered customers</a>
+
+            <a class="btn btn-primary btn-block" href="/signin">Sign in here</a>
+
+            <a class="btn btn-primary btn-block" href="/mypage">My page</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
