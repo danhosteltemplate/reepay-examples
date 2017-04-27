@@ -1,9 +1,9 @@
-import demo.Application;
-import demo.controllers.ReepayController;
-import demo.facade.CustomerService;
-import demo.model.Customer;
-import demo.model.FormData;
-import demo.model.SubscriptionList;
+import com.reepay.examples.subscription.Application;
+import com.reepay.examples.subscription.controllers.ReepayController;
+import com.reepay.examples.subscription.facade.CustomerService;
+import com.reepay.examples.subscription.model.Customer;
+import com.reepay.examples.subscription.model.FormData;
+import com.reepay.examples.subscription.model.SubscriptionList;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

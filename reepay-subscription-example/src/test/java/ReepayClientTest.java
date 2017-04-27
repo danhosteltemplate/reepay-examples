@@ -1,7 +1,7 @@
-import demo.Application;
-import demo.ReepayClient;
-import demo.model.AbstractExamples;
-import demo.model.SubscriptionList;
+import com.reepay.examples.subscription.Application;
+import com.reepay.examples.subscription.ReepayClient;
+import com.reepay.examples.subscription.model.AbstractExamples;
+import com.reepay.examples.subscription.model.SubscriptionList;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

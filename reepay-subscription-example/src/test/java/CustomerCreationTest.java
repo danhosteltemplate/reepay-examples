@@ -1,6 +1,6 @@
-import demo.Application;
-import demo.facade.CustomerService;
-import demo.model.Customer;
+import com.reepay.examples.subscription.Application;
+import com.reepay.examples.subscription.facade.CustomerService;
+import com.reepay.examples.subscription.model.Customer;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
