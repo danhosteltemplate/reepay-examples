@@ -21,14 +21,14 @@ import java.util.Map;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("itest")
-public class ReepayClientTest extends AbstractExamples{
+public class ReepayClientIT extends AbstractExamples{
 
     @Inject
     private ReepayClient client;
 
     @Test
     public void getWithParamsTest(){
-        Map<String, List<String>> params = new HashMap();
+        Map<String, List<String>> params = new HashMap<>();
         List<String> searchParams = new ArrayList<>();
         searchParams.add("customer.handle:cust-0165");
         params.put("search", searchParams);

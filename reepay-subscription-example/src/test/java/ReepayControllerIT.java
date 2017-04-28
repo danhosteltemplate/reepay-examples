@@ -21,7 +21,7 @@ import java.util.UUID;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class)
 @ActiveProfiles("itest")
-public class ReepayControllerTest {
+public class ReepayControllerIT {
     @Inject
     ReepayController reepayController;
 
