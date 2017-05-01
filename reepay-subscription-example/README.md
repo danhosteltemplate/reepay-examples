@@ -9,7 +9,7 @@ Example project showing samples of the Reepay API use. The project is written in
 
 ## Building
 
-    mvn clean install
+    mvn clean install "-Dpublic_key=pub_a14c9c530076ac4abfcbdded1fc68dbc" "-Dprivate_key=priv_105b4a558fdf057833e31ec80b9572fe"
 
 ## Running
 
