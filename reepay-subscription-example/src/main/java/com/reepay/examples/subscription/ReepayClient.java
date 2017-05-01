@@ -3,7 +3,6 @@ package com.reepay.examples.subscription;
 /**
  * Created by mikkel on 03/04/2017.
  */
-import com.google.common.base.Strings;
 import org.glassfish.jersey.logging.LoggingFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,15 +31,7 @@ public class ReepayClient {
 
     private final WebTarget target;
 
-    public ReepayClient(@Value("${public_key:}") String publicKey, @Value("${private_key:}") String privateKey) {
-        if (Strings.isNullOrEmpty(publicKey)) {
-            LOG.error("Missing public_key argument");
-            System.exit(-1);
-        }
-        if (Strings.isNullOrEmpty(privateKey)) {
-            LOG.error("Missing private_key argument");
-            System.exit(-1);
-        }
+    public ReepayClient(@Value("${public_key}") String publicKey, @Value("${private_key}") String privateKey) {
         this.publicKey = publicKey;
         this.authHeader = "Basic " + new String(Base64.getEncoder().encode((privateKey + ":").getBytes()));
         Client client = ClientBuilder.newClient();

@@ -45,7 +45,7 @@ public class SubscriptionList {
     }
 
     public List<String> getCustomers(){
-        List<String> customers = new ArrayList();
+        List<String> customers = new ArrayList<>();
         for(Subscription subscription : subscriptions){
             customers.add(subscription.getCustomer());
         }
