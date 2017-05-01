@@ -167,6 +167,7 @@
     <script src="/scripts/button.js"></script>
     <script src="/scripts/jquery.card.js"></script>
     <script src="/scripts/bootstrap.min.js"></script>
+    <script src="/scripts/lib/texts.js"></script>
     <script src="https://js.reepay.com/v1/reepay.js"></script>
     <script type="text/javascript" src="/scripts/utility.js"></script>
 	
@@ -190,15 +191,13 @@
 
         // Make a new ReepayUtils object with your desired settings
         var rep = new ReepayUtils({
-            inputClass: ".customer_info",
-            cardnumberField: "#cardnumber",
-            expiryField: "#expiry",
-            cvvField: "#cvc"
+            cvvId: "#cvc",
+            submitButtonId: "#savebutton",
         });
         // Validate that everything has been filled out correctly.
         rep.validate();
         // Handles the submission of the form. 
-        rep.reepaySubmit();
+        rep.createCustomer();
 
 
 		

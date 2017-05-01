@@ -2,6 +2,7 @@ import com.reepay.examples.subscription.Application;
 import com.reepay.examples.subscription.ReepayClient;
 import com.reepay.examples.subscription.model.AbstractExamples;
 import com.reepay.examples.subscription.model.SubscriptionList;
+import com.reepay.examples.subscription.model.Customer;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,7 +33,7 @@ public class ReepayClientTest extends AbstractExamples{
         List<String> searchParams = new ArrayList<>();
         searchParams.add("customer.handle:cust-0165");
         params.put("search", searchParams);
-        client.get("/v1/subscription", params);
+
         SubscriptionList subscriptions = readResponse(client.get("/v1/subscription", params), SubscriptionList.class);
 
         List<String> customers = subscriptions.getCustomers();
@@ -40,5 +41,11 @@ public class ReepayClientTest extends AbstractExamples{
         customers.removeIf("cust-0165"::equals);
 
         Assert.assertTrue(customers.isEmpty());
+    }
+    
+    @Test
+    public void getCustomer(){
+        Customer customer = readResponse(client.get("/v1/customer/customer-123123"), Customer.class);
+        Assert.assertEquals(customer.getFirstName(), "Carl");
     }
 }

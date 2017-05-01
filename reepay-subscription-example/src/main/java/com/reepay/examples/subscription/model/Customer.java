@@ -25,8 +25,10 @@ public class Customer {
 
     private String password;
 
+    @JsonProperty("first_name")
     private String firstName;
 
+    @JsonProperty("last_name")
     private String lastName;
 
     private String address;
