@@ -25,8 +25,8 @@ public final class SubscriptionMapper {
         
         subscriptionDTO.setCustomer(customerDto);
 
-        if(formData.getMethod().equals("card_token")) {
-            subscriptionDTO.setCardToken(formData.getToken());
+        if(formData.getMethod().equals("source")) {
+            subscriptionDTO.setSource(formData.getToken());
         } else {
             subscriptionDTO.setSignupMethod(formData.getMethod());
         }

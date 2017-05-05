@@ -3,8 +3,6 @@ package com.reepay.examples.subscription.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import javax.persistence.Entity;
-
 /**
  * Created by mikkel on 11/04/2017.
  */
@@ -17,7 +15,7 @@ public class FormData {
     private String password;
     private String token;
     private String plan;
-    private String method = "card_token";
+    private String method = "source";
     private String handle;
 
     public String getEmail() {
