@@ -19,7 +19,7 @@ public class SubscriptionExamples extends AbstractExamples implements Runnable {
         // Create a recurring token directly with the Reepay card API
         // WARNING: This should always be done using Reepay.js in non-test cases.
         String token = createToken("4111111111111111", "999", 12, 20, true);
-        
+
         // Make sure there is a plan called gold
         Map<String, Object> params = Maps.newHashMap();
         params.put("handle", "gold");
@@ -27,7 +27,7 @@ public class SubscriptionExamples extends AbstractExamples implements Runnable {
         params.put("name", "Gold subscription");
         params.put("schedule_type", "manual");
         client.post("/v1/plan", params);
-        
+
         // Create customer and subscription
         Map<String, Object> customer = Maps.newHashMap();
         customer.put("generate_handle", true);
@@ -35,8 +35,8 @@ public class SubscriptionExamples extends AbstractExamples implements Runnable {
         Map<String, Object> subscription = Maps.newHashMap();
         subscription.put("generate_handle", true);
         subscription.put("create_customer", customer);
-        subscription.put("signup_method", "card_token");
-        subscription.put("card_token", token);
+        subscription.put("signup_method", "source");
+        subscription.put("source", token);
         subscription.put("plan", "gold");
 
         Subscription sub = readResponse(client.post("/v1/subscription", subscription), Subscription.class);
@@ -44,6 +44,6 @@ public class SubscriptionExamples extends AbstractExamples implements Runnable {
             LOG.error("Subscription not active");
             System.exit(-1);
         }
-        
+
     }
 }
