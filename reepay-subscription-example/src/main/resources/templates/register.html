@@ -9,10 +9,11 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/font-awesome.min.css" />
     <link rel="stylesheet" href="/css/app.css" />
-    
+
 </head>
+
 <body>
-	<div class="container-fluid">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-6">
                 <div th:replace="fragments/navigation :: 'navbar'"></div>
@@ -21,24 +22,24 @@
                 <div th:replace="fragments/logout :: 'logout'"></div>
             </div>
         </div>
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-				<section class="panel panel-default portlet-item">
-                <header class="panel-heading">
-                    <h2 class="panel-title">Sign-up</h2>
-                </header>
-                	<section class="panel-body">
-                	<h4>Subscription</h4>
-                	<div class="row">
-                		<div class="col-sm-12">
-                			<p>Product goes here!</p>
-                		</div>
-                		<div class="col-sm-12">
-                			<p>Please enter your information here</p>
-                		</div>
-                	</div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <section class="panel panel-default portlet-item">
+                    <header class="panel-heading">
+                        <h2 class="panel-title">Sign-up</h2>
+                    </header>
+                    <section class="panel-body">
+                        <h4>Subscription</h4>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p>Product goes here!</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <p>Please enter your information here</p>
+                            </div>
+                        </div>
 
-               <form id="paymentform" role="form" method="post" type="submit" th:action="@{/register/new}" th:object="${formdata}">
+                        <form id="paymentform" role="form" method="post" type="submit" th:action="@{/register/new}" th:object="${formdata}">
                             <article class="media" id="paymentinfo">
                                 <h4>Personal information</h4>
 
@@ -50,8 +51,8 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                                    <input type="radio" th:field="*{plan}" th:value="gold" />
-                                                    <label th:for="${#ids.prev('plan')}" th:text="Gold">Gold</label>
+                                            <input type="radio" th:field="*{plan}" th:value="gold" />
+                                            <label th:for="${#ids.prev('plan')}" th:text="Gold">Gold</label>
                                         </div>
                                     </div>
                                 </div>
@@ -65,7 +66,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="control-label">Last name</label>
-                                            <input type="text" class="form-control customer_info" name="last_name" required="required" placeholder="Last name" th:field="*{lastName}"/>
+                                            <input type="text" class="form-control customer_info" name="last_name" required="required" placeholder="Last name" th:field="*{lastName}" />
                                         </div>
                                     </div>
                                 </div>
@@ -74,13 +75,13 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="control-label">Email</label>
-                                            <input type="text" class="form-control customer_info" name="email" required="required" placeholder="Email" th:field="*{email}"/>
+                                            <input type="text" class="form-control customer_info" name="email" required="required" placeholder="Email" th:field="*{email}" />
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="control-label">Password</label>
-                                            <input type="password" class="form-control customer_info" name="password" required="required" placeholder="Password" th:field="*{password}"/>
+                                            <input type="password" class="form-control customer_info" name="password" required="required" placeholder="Password" th:field="*{password}" />
                                         </div>
                                     </div>
                                 </div>
@@ -97,13 +98,13 @@
                                         <div class="col-sm-6">
                                             <div class="form-group" id="form-group-cardnumber">
                                                 <label class="control-label">Card number</label>
-                                                <input type="text" class="form-control" placeholder="Enter cardnumber" id="cardnumber"/>
+                                                <input type="text" class="form-control" placeholder="Enter cardnumber" id="cardnumber" />
                                             </div>
                                             <div class="row">
                                                 <div class="col-sm-5">
                                                     <div class="form-group" id="form-group-exp">
                                                         <label class="control-label">Expiry date</label>
-                                                        <input type="text" class="form-control" placeholder="MM/YY" id="expiry"/>
+                                                        <input type="text" class="form-control" placeholder="MM/YY" id="expiry" />
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-1"></div>
@@ -123,7 +124,7 @@
                                                 </label>
                                                 </div>
                                             </div>
-                                            <input type="hidden" id="token" name="reepay-token" data-reepay="token" th:field="*{token}"/>
+                                            <input type="hidden" id="token" name="reepay-token" data-reepay="token" th:field="*{token}" />
                                             <button class="btn btn-s-md btn-primary" style="width:100%" data-loading-text="sending..." id="savebutton">Sign-up
                                         </button>
 
@@ -154,26 +155,26 @@
                                 </div>
                             </div>
                         </article>
-                	</section>
+                    </section>
                 </section>
-			</div>
-		</div>
-		<div class="row">
-			<div id="#formcontainer"></div>
-		</div>
+            </div>
+        </div>
+        <div class="row">
+            <div id="#formcontainer"></div>
+        </div>
 
-	</div>
-	<script src="/scripts/jquery.min.js"></script>
+    </div>
+    <script src="/scripts/jquery.min.js"></script>
     <script src="/scripts/button.js"></script>
     <script src="/scripts/jquery.card.js"></script>
     <script src="/scripts/bootstrap.min.js"></script>
     <script src="/scripts/lib/texts.js"></script>
     <script src="https://js.reepay.com/v1/reepay.js"></script>
     <script type="text/javascript" src="/scripts/utility.js"></script>
-	
-	<script>
-		$("#paymentform").card({
-			container: '#card-container',
+
+    <script>
+        $("#paymentform").card({
+            container: '#card-container',
             formSelectors: {
                 numberInput: 'input#cardnumber',
                 expiryInput: 'input#expiry',
@@ -185,7 +186,7 @@
                 expiry: '**/**',
                 cvc: '***'
             }
-		});
+        });
         // Configure the Reepay library with your public key. 
         reepay.configure("pub_4340532086bc46daa3da974c3840e292");
 
@@ -193,15 +194,13 @@
         var rep = new ReepayUtils({
             cvvId: "#cvc",
             submitButtonId: "#savebutton",
+            termsId: "#terms"
         });
         // Validate that everything has been filled out correctly.
         rep.validate();
         // Handles the submission of the form. 
         rep.createCustomer();
-
-
-		
-
-	</script>
+    </script>
 </body>
+
 </html>

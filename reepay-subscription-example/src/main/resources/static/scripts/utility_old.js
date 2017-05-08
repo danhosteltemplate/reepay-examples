@@ -14,7 +14,7 @@ function ReepayUtils(valSettings) {
         expiryId: "#expiry",
         inputClass: ".customer_info",
         submitButtonId: "#savebutton",
-        termsId: undefined,
+        termsId: "#terms",
         formId: "#paymentform",
         couponId: "#coupon",
         checkEmail: true,
@@ -69,12 +69,14 @@ function ReepayUtils(valSettings) {
                 if ($(this).val() == "") {
                     console.log($(this).attr("name") + " is empty");
                     status = false;
+                    return;
                 }
             }
 
             if ($(this).attr("name") == "email" && !self.isEmail($(this).val())) {
                 console.log($(this).attr("name") + " is not valid");
                 status = false;
+                return;
             }
         });
         return status;
@@ -100,7 +102,7 @@ function ReepayUtils(valSettings) {
      */
     self.validateCardnumber = function(cardnumberId) {
         $(cardnumberId).blur(function() {
-            //$('#error').hide();
+            $('#error').hide();
             if (!reepay.validate.cardNumber($(cardnumberId).val())) {
                 // This can be changed to how you wish to do with the validation of the cardnumberId
 
@@ -174,7 +176,6 @@ function ReepayUtils(valSettings) {
      * Validates if the terms has been checked.
      */
     self.validateTerms = function(termsId) {
-
         $(termsId).change(function() {
             // Check if terms has been accepted. This can be changed to how you wish to handle the errors. 
             if (this.checked) {
@@ -185,10 +186,6 @@ function ReepayUtils(valSettings) {
                 $("#terms-group").addClass("has-error");
             }
         });
-        if (!$(termsId).checked) {
-            return false;
-        }
-        return true;
     }
 
     /**
@@ -237,82 +234,41 @@ function ReepayUtils(valSettings) {
     }
 
     /**
-     * Checks if the terms are checked
-     * @param {Object} settings
-     * @returns {boolean}
-     */
-    self.checkTerms = function(settings) {
-        if (typeof(settings.termsId) != 'undefined' && !$(settings.termsId)[0].checked) {
-            $("#terms-group").addClass("has-error");
-            var errText = interpretError("terms-error", settings.locale);
-            $('#error_headline').html(errText.headline);
-            $('#error_message').html(errText.message);
-            $('#error').show();
-
-            $(settings.submitButtonId).button('reset');
-            return false;
-        }
-        return true;
-    }
-
-
-    /**
-     * Validates the payment info up against reepay's JS/API
-     * @param {Object} settings
-     * @param {customTokenFunction}
-     */
-    self.validatePaymentInfo = function(settings, customTokenFunction) {
-        var exp = $(settings.expiryId).val().replace(/\s/g, '').split("/");
-
-        // alternatively..
-        var paymentinfo = {
-            // TODO: the name must be cardnumber not only number. Server supports number fix.
-            number: $(settings.cardnumberId).val(),
-            month: exp[0],
-            year: exp[1],
-            cvv: $(settings.cvvId).val()
-        };
-        reepay.validate.cardNumber(paymentinfo['number']);
-
-        $(settings.submitButtonId).button('loading');
-        self.getToken(settings, paymentinfo, customTokenFunction);
-    }
-
-
-    /**
      * Creates a customer from the specified settings
      * @param {Object} settings
      * @param {customTokenFunction} customTokenFunction
      */
     self.createCustomer = function(settings, customTokenFunction) {
-        var check = true;
+
         $(settings.submitButtonId).on('click', function(event) {
-            $("#customer_error").hide();
-            $("#error").hide();
             event.preventDefault();
-            check = self.checkTerms(settings);
-
-
             // Validate Customer
             if (!self.validateCustomer(settings.inputClass)) {
                 // Show some kind of error here
-                //$('#customer_error_headline').html("Wrong information");
-                //$('#customer_error_message').html("Please fill in correct information");
-
-                var errText = interpretError("validation", settings.locale);
-                $('#customer_error_headline').html(errText.headline);
-                $('#customer_error_message').html(errText.message);
+                $('#customer_error_headline').html("Wrong information");
+                $('#customer_error_message').html("Please fill in correct information");
                 $("#customer_error").show();
-                check = false;
+                return;
             }
 
-            if (!check) {
-                self.validatePaymentInfo(settings, customTokenFunction);
-            } else {
-                self.customer = self.getCustomer(settings.inputClass);
-                $("#customer_error").hide();
-                self.validatePaymentInfo(settings, customTokenFunction);
-            }
+
+            self.customer = self.getCustomer(settings.inputClass);
+            $("#customer_error").hide();
+
+            var exp = $(settings.expiryId).val().replace(/\s/g, '').split("/");
+
+            // alternatively..
+            var paymentinfo = {
+                // TODO: the name must be cardnumber not only number. Server supports number fix.
+                number: $(settings.cardnumberId).val(),
+                month: exp[0],
+                year: exp[1],
+                cvv: $(settings.cvvId).val()
+            };
+            reepay.validate.cardNumber(paymentinfo['number']);
+
+            $(settings.submitButtonId).button('loading');
+            self.getToken(settings, paymentinfo, customTokenFunction);
         });
     };
 
@@ -322,23 +278,16 @@ function ReepayUtils(valSettings) {
      * @param {string} couponId
      * @param {validationFunction} validationFunction
      */
-    self.checkCoupon = function(couponId, validationFunction) {
+    self.couponCheck = function(couponId, validationFunction) {
         $(couponId).on('blur', function(event) {
-            $(".validation-message").children().hide();
-            $(couponId).parent().removeClass("has-error");
-            $(couponId).parent().removeClass("has-success");
             var coupon = {
                 code: $(couponId).val()
             }
-            console.log(coupon.code);
+
             if (validationFunction == undefined) {
                 console.error("A validation function for the coupon field is required");
-            } else if (coupon.code != "") {
-                $(couponId).addClass("customer_info");
-                validationFunction(coupon, couponId);
             } else {
-                $(couponId).removeClass("customer_info");
-                $(".extras").html("");
+                validationFunction(coupon);
             }
         });
     }
@@ -348,20 +297,34 @@ function ReepayUtils(valSettings) {
      */
     self.updateCard = function(settings, updateCardFunction) {
         $(settings.submitButtonId).on('click', function(event) {
-            $("#customer_error").hide();
-            $("#error").hide();
             event.preventDefault();
+            if ($(settings.termsId) != undefined && !$(settings.termsId)[0].checked) {
+                $("#terms-group").addClass("has-error");
 
-            self.checkTerms(settings);
-            self.validatePaymentInfo(settings, updateCardFunction);
+                $('#error_headline').html("Accepter betingelser");
+                $('#error_message').html("Du skal huske at accepterer betingelserne.");
+                $('#error').show();
+
+                $(settings.submitButtonId).button('reset');
+                return;
+            }
+            var exp = $("#expiry").val().replace(/\s/g, '').split("/");
+            var paymentinfo = {
+                // TODO: the name must be cardnumber not only number. Server supports number fix.
+                number: $(settings.cardnumberId).val(),
+                month: exp[0],
+                year: exp[1],
+                cvv: $(settings.cvvId).val()
+            };
+            reepay.validate.cardNumber(paymentinfo['number']);
+            $(settings.submitButtonId).button('loading');
+            self.getToken(settings, paymentinfo, updateCardFunction);
         });
     }
 
 
 
-    /**
-     * Exposes the necessary functions to the caller
-     */
+    // Public to call
     return {
         // Validates input with the given settings in the constructor
         validate: function() {
@@ -371,7 +334,7 @@ function ReepayUtils(valSettings) {
             self.createCustomer(self.settings, customTokenFunction);
         },
         coupon: function(validationFunction) {
-            self.checkCoupon(self.settings.couponId, validationFunction);
+            self.couponCheck(self.settings.couponId, validationFunction);
         },
         updateCard: function(updateCardFunction) {
             self.updateCard(self.settings, updateCardFunction);
