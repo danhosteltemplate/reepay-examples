@@ -12,11 +12,11 @@ public class SubscriptionDto {
     @JsonProperty("handle")
     private String handle;
     @JsonProperty("signup_method")
-    private String signupMethod = "card_token";
+    private String signupMethod = "source";
     @JsonProperty("plan")
     private String plan;
-    @JsonProperty("card_token")
-    private String cardToken;
+    @JsonProperty("source")
+    private String source;
     @JsonProperty("generate_handle")
     private boolean generateHandle = true;
 
@@ -43,12 +43,12 @@ public class SubscriptionDto {
         this.plan = plan;
     }
 
-    public String getCardToken() {
-        return cardToken;
+    public String getSource() {
+        return source;
     }
 
-    public void setCardToken(String cardToken) {
-        this.cardToken = cardToken;
+    public void setSource(String source) {
+        this.source = source;
     }
 
     public boolean isGenerateHandle() {
