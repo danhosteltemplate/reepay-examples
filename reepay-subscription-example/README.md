@@ -1,7 +1,7 @@
 # Reepay API examples
 
 Example project showing samples of the Reepay API use. The project is written in Java using the Spring Boot framework.
-
+**This example does not do any frontend validation nor any nice error handling. This example project is purely for demonstration of how a java project could look like when using the Reepay API**
 ## Prerequisites
 
 * Java 8
