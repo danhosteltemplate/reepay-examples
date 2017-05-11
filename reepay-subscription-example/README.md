@@ -23,13 +23,13 @@ If the application does not automatically open in your browser, go to http://loc
 ### Registering
 The register page will show you a form. All fields are required.
 When you register, a customer will be created in the local database and the customer will be subscribed to the plan through Reepay.
-**There are no one-to-one mapping between the local database and Reepay. The local database is reset everytime the application is restarted**
-**There are no length or complexity restriction on the password**
-**In this example, you can't have two customers registered with the same email address**
+- **There are no one-to-one mapping between the local database and Reepay. The local database is reset everytime the application is restarted**
+- **There are no length or complexity restriction on the password**
+- **In this example, you can't have two customers registered with the same email address**
 
 ## Registered customers
 When one or more customers are registered they will be shown under the tab "Registered customers"
-**This tab is for testing purposes only. You should never expose such data**
+- **This tab is for testing purposes only. You should never expose such data**
 
 ## Signing in to my page
 When you have registered you can sign in and view various details.
