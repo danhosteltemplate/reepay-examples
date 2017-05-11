@@ -21,5 +21,9 @@ public interface ReepayController {
 
     Optional<Coupon> validateCoupon(Coupon coupon);
     CouponRedemption redeemCoupon(Coupon coupon, String subscriptionHandle);
+    
+    <T> PlanList getPlans();
+    
+    Plan createPlan(Plan plan);
 
 }

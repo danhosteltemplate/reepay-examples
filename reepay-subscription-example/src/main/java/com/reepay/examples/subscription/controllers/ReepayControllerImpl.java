@@ -72,6 +72,8 @@ public class ReepayControllerImpl extends AbstractExamples implements ReepayCont
     public <T> CardList getCardsForCustomer(String customerHandle) {
         return readResponse(client.get("/v1/customer/" + customerHandle + "/payment_method"), CardList.class);
     }
+    
+    @Override
     public Optional<Coupon> validateCoupon(Coupon coupon) {
         Map<String, List<String>> params = new HashMap<>();
         List<String> codeParams = new ArrayList<>();
@@ -98,6 +100,20 @@ public class ReepayControllerImpl extends AbstractExamples implements ReepayCont
     @Override
     public CouponRedemption redeemCoupon(Coupon coupon, String subscriptionHandle) {
         return readResponse(client.post("/v1/subscription/" + subscriptionHandle + "/coupon", coupon), CouponRedemption.class);
+    }
+
+    @Override
+    public <T> PlanList getPlans() {
+        Map<String, List<String>> params = new HashMap<>();
+        List<String> onlyActive = new ArrayList<>();
+        onlyActive.add("true");
+        params.put("only_active", onlyActive);
+        return readResponse(client.get("/v1/plan", params), PlanList.class);
+    }
+
+    @Override
+    public Plan createPlan(Plan plan) {
+        return readResponse(client.post("/v1/plan", plan), Plan.class);
     }
 
 

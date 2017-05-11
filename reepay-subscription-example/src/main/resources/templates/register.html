@@ -29,13 +29,12 @@
                         <h2 class="panel-title">Sign-up</h2>
                     </header>
                     <section class="panel-body">
-                        <h4>Subscription</h4>
                         <div class="row">
                             <div class="col-sm-12">
-                                <p>Gold plan</p>
+                                <h3 th:text="${plan.name}"></h3>
                             </div>
                             <div class="col-sm-12">
-                                <p>Company ABC</p>
+                                <h4>Company ABC</h4>
                             </div>
                         </div>
 
@@ -51,7 +50,7 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <input type="hidden" th:id="plan" th:name="plan" th:value="gold" readonly="readonly"/>
+                                            <input type="hidden" th:id="plan" th:name="plan" th:value="${plan.handle}" readonly="readonly"/>
                                             <!--
                                                 This plan is the default for the purpose of this example. This is not a necessity,
                                                 as you can define this in any way you like, as long as it's a valid plan handle. 

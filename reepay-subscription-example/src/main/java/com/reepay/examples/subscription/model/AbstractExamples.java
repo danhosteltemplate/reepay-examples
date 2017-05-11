@@ -1,6 +1,7 @@
 package com.reepay.examples.subscription.model;
 
 import com.reepay.examples.subscription.ReepayClient;
+import com.reepay.examples.subscription.model.exceptions.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,8 +19,7 @@ public abstract class AbstractExamples {
         if (response.getStatus() != 200) {
             //TODO: Handle this in a graceful way.
             LOG.error("Request failed");
-            //System.exit(-1);
-            return null;
+            throw ServiceException.create(getErrorResponse(response));
         }
         return response.readEntity(clazz);
     }

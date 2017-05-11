@@ -33,14 +33,22 @@ public class CustomerController {
 
     @Inject
     private ReepayController reepayController;
+    
+    @Inject
+    private PlanConfig planConfig;
 
     @RequestMapping("/")
     public String home(){
         return "home";
     }
+    
     @RequestMapping("/register")
     public String signup(Model model) {
         model.addAttribute("formdata", new FormData());
+        //You can pass a different handle here to decide which plan you want to expose. You can also expose all plans
+        //In this example we simply choose to expose the gold plan.
+        model.addAttribute("plan", reepayController.getPlan(planConfig.getPlanHandle()));
+        //model.addAttribute("plans", reepayController.getPlans());
         return "register";
     }
 
