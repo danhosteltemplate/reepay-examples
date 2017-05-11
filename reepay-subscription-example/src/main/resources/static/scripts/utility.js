@@ -88,7 +88,7 @@ function ReepayUtils(valSettings) {
         console.log(inputName);
         var customer = {};
 
-        $(".customer_info").each(function() {
+        $(inputName).each(function() {
             customer[$(this).attr("name")] = $(this).val();
         });
 

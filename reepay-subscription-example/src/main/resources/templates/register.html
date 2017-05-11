@@ -32,10 +32,10 @@
                         <h4>Subscription</h4>
                         <div class="row">
                             <div class="col-sm-12">
-                                <p>Product goes here!</p>
+                                <p>Gold plan</p>
                             </div>
                             <div class="col-sm-12">
-                                <p>Please enter your information here</p>
+                                <p>Company ABC</p>
                             </div>
                         </div>
 
@@ -51,8 +51,13 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <input type="radio" th:field="*{plan}" th:value="gold" />
-                                            <label th:for="${#ids.prev('plan')}" th:text="Gold">Gold</label>
+                                            <input type="hidden" th:id="plan" th:name="plan" th:value="gold" readonly="readonly"/>
+                                            <!--
+                                                This plan is the default for the purpose of this example. This is not a necessity,
+                                                as you can define this in any way you like, as long as it's a valid plan handle. 
+                                                In this case gold is the plan handle
+                                            -->
+                                            <!--<label th:for="${#ids.prev('plan')}" th:text="Gold">Gold</label>-->
                                         </div>
                                     </div>
                                 </div>
