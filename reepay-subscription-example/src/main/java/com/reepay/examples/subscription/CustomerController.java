@@ -35,6 +35,9 @@ public class CustomerController {
     private ReepayController reepayController;
     
     @Inject
+    private ReepayClient client;
+    
+    @Inject
     private PlanConfig planConfig;
 
     @RequestMapping("/")
@@ -48,6 +51,7 @@ public class CustomerController {
         //You can pass a different handle here to decide which plan you want to expose. You can also expose all plans
         //In this example we simply choose to expose the gold plan.
         model.addAttribute("plan", reepayController.getPlan(planConfig.getPlanHandle()));
+        model.addAttribute("publicKey", client.getPublicKey());
         //model.addAttribute("plans", reepayController.getPlans());
         return "register";
     }

@@ -176,7 +176,8 @@
     <script src="https://js.reepay.com/v1/reepay.js"></script>
     <script type="text/javascript" src="/scripts/utility.js"></script>
 
-    <script>
+    <script th:inline="javascript">
+    
         $("#paymentform").card({
             container: '#card-container',
             formSelectors: {
@@ -192,7 +193,9 @@
             }
         });
         // Configure the Reepay library with your public key. 
-        reepay.configure("pub_4340532086bc46daa3da974c3840e292");
+        /*<![CDATA[*/
+        reepay.configure([[${publicKey}]]);
+        /*]]>*/
 
         // Make a new ReepayUtils object with your desired settings
         var rep = new ReepayUtils({
@@ -204,6 +207,7 @@
         rep.validate();
         // Handles the submission of the form. 
         rep.createCustomer();
+        
     </script>
 </body>
 
