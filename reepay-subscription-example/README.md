@@ -27,7 +27,8 @@ If the application cannot start, verify that the keys are correct, and a plan wi
 
 ### Sign-up
 
-The sign-up page will show you a form. All fields are required.
+The sign-up page will show you a form. All fields are required. Test cards can be found [here](https://docs.reepay.com/api/#testing).
+
 When you sign-up, a customer will be created in the local database and the customer will be subscribed to the plan through Reepay.
 
 - **There are no one-to-one mapping between the local database and Reepay. The local database is reset every time the application is restarted**
