@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reepay sign-up page example</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/app.css">
+
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <section class="panel panel-default portlet-item">
+                <header class="panel-heading">
+                    <h2 class="panel-title">Sign-up</h2>
+                </header>
+                <section class="panel-body">
+                    <h4>Subscription</h4>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p>Product goes here!</p>
+                        </div>
+                        <div class="col-sm-12">
+                            <p>Please enter your information here</p>
+                        </div>
+                    </div>
+
+                    <form id="paymentform" role="form" method="post" type="submit" action="signup.php">
+                        <article class="media" id="paymentinfo">
+                            <h4>Personal information</h4>
+
+                            <div class="alert alert-danger" style="display: none" id="customer_error">
+                                <i class="fa fa-ban-circle"></i>
+                                <strong id="customer_error_headline">Oh snap!</strong>
+                                <p id="customer_error_message"></p>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">First name</label>
+                                        <input type="text" class="form-control customer_info" name="first_name" required="required" placeholder="First name">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Last name</label>
+                                        <input type="text" class="form-control customer_info" name="last_name" required="required" placeholder="Last name">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Email</label>
+                                        <input type="text" class="form-control customer_info" name="email" required="required" placeholder="Email">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h4>Payment information</h4>
+
+                            <div class="alert alert-danger" style="display: none" id="error">
+                                <i class="fa fa-ban-circle"></i>
+                                <strong id="error_headline">Oh snap!</strong>
+                                <p id="error_message"></p>
+                            </div>
+                            <div class="media-body">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div id="terms-group" class="form-group">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" id="terms"/>
+                                                    I accept
+                                                    <a href="#" data-toggle="modal" data-target="#myModal">the terms.</a>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" id="token" name="reepay-token" data-reepay="token">
+                                        <button id="open-button" disabled>Open frame</button>
+                                        <button class="btn btn-s-md btn-primary" style="width:100%" data-loading-text="sending..." id="savebutton">Sign-up
+                                        </button>
+
+
+                                    </div>
+                                    <div class="col-sm-6 hidden-xs" id="card-container"></div>
+                                </div>
+                            </div>
+
+                        </article>
+                    </form>
+                    <article class="media" id="paymentinfo_success" style="display: none">
+                        <div class="media-body" style="height: 200px;">
+                            <p></p>
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="box">
+                                        <div class="box-icon">
+                                            <span class="fa fa-4x fa-check"></span>
+                                        </div>
+                                        <div class="info">
+                                            <h5 class="text-center">You are now signed up</h5>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-6 hidden-xs"></div>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+            </section>
+        </div>
+    </div>
+    <div class="row">
+        <div id="#formcontainer"></div>
+    </div>
+
+</div>
+<script src="js/jquery.min.js"></script>
+<script src="js/button.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<script src="https://token.reepay.com/token.js"">
+</script>
+
+<script>
+    var handler = reepaytoken.configure({
+        key: '{{your_publickey}}',
+        locale: 'da',
+        cardToken: function(token) {
+            console.log(token);
+            document.querySelector('#token').value = token.id;
+        },
+        ready: function(){
+            document.querySelector('#open-button').removeAttribute('disabled');
+        }
+    });
+
+    document.querySelector('#open-button').addEventListener('click', function(event) {
+        event.preventDefault();
+        handler.open();
+    });
+</script>
+</body>

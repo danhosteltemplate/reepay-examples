@@ -12,24 +12,24 @@
 
 </head>
 <body>
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-md-3"></div>
-			<div class="col-md-6">
-				<section class="panel panel-default portlet-item">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <section class="panel panel-default portlet-item">
                 <header class="panel-heading">
                     <h2 class="panel-title">Sign-up</h2>
                 </header>
-                	<section class="panel-body">
-                	<h4>Subscription</h4>
-                	<div class="row">
-                		<div class="col-sm-12">
-                			<p>Product goes here!</p>
-                		</div>
-                		<div class="col-sm-12">
-                			<p>Please enter your information here</p>
-                		</div>
-                	</div>
+                    <section class="panel-body">
+                    <h4>Subscription</h4>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p>Product goes here!</p>
+                        </div>
+                        <div class="col-sm-12">
+                            <p>Please enter your information here</p>
+                        </div>
+                    </div>
 
                <form id="paymentform" role="form" method="post" type="submit" action="signup.php">
                             <article class="media" id="paymentinfo">
@@ -75,25 +75,6 @@
                                 <div class="media-body">
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <div class="form-group" id="form-group-cardnumber">
-                                                <label class="control-label">Card number</label>
-                                                <input type="text" class="form-control" placeholder="Enter cardnumber" id="cardnumber">
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm-5">
-                                                    <div class="form-group" id="form-group-exp">
-                                                        <label class="control-label">Expiry date</label>
-                                                        <input type="text" class="form-control" placeholder="MM/YY" id="expiry">
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-1"></div>
-                                                <div class="col-sm-7">
-                                                    <div class="form-group" id="form-group-cvc">
-                                                        <label class="control-label">CVV</label>
-                                                        <input type="text" class="form-control" placeholder="CVV" id="cvc">
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div id="terms-group" class="form-group">
                                                 <div class="checkbox">
                                                     <label>
@@ -112,10 +93,11 @@
                                         <div class="col-sm-6 hidden-xs" id="card-container"></div>
                                     </div>
                                 </div>
-                                <script src="js/token.min.js"
+                                <script src="https://token.reepay.com/token.js"
                                         class="reepay-button"
-                                        data-pubkey="{{PUBLIC_KEY}}"
-                                        data-text="Card information">
+                                        data-pubkey="{{you_publickey}}"
+                                        data-text="Card information"
+                                        data-locale="da">
                                 </script>
                             </article>
                         </form>
@@ -139,16 +121,16 @@
                                 </div>
                             </div>
                         </article>
-                	</section>
+                    </section>
                 </section>
-			</div>
-		</div>
-		<div class="row">
-			<div id="#formcontainer"></div>
-		</div>
+            </div>
+        </div>
+        <div class="row">
+            <div id="#formcontainer"></div>
+        </div>
 
-	</div>
-	<script src="js/jquery.min.js"></script>
+    </div>
+    <script src="js/jquery.min.js"></script>
     <script src="js/button.js"></script>
     <script src="js/bootstrap.min.js"></script>
 </body>
