@@ -1,4 +1,3 @@
-FROM php:5-apache
-COPY src/ /var/www/html/
+FROM glebpoljakov/alpine-nginx-php5
 
 EXPOSE 80

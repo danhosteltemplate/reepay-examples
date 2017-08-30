@@ -1,6 +1,6 @@
 ![reepay.js](https://docs.reepay.com/js/images/logo.png "reepay.js")
 
-Example project demonstrating the use of the Reepay Token Javascript Library to get a credit card token that can be used for single charges and recurring payments for subscriptions.
+Example project demonstrating the use of the Reepay Token solution to get a credit card token that can be used for one-time charges and subscriptions.
 
 The project contains a simple PHP web application served by a web server running in a Docker container. The sign-up page submits data to the server. The data can be used to perform a single charge, see this [example](https://github.com/reepay/reepay-examples/wiki/One-time-charging). Or it can be used to create a customer and a subscription, see this [example](https://github.com/reepay/reepay-examples/wiki/Simple-subscription-handling#create-customer-and-subscription).
 
@@ -10,7 +10,7 @@ Docker and Docker Compose ([Docker Toolbox](https://www.docker.com/products/dock
 
 ## Running
 
-1. Define the public key by substituting `{{your_publickeyhere}}` in `index.html`. A public key can be found/generated in the Reepay Administration under Developer -> API credentials.
+1. Define the public key by substituting `your_publickey_here` in `index.html`. A public key can be found/generated in the Reepay Administration under Developer -> API credentials.
 
 2. Run a containerized web server using Docker Compose:
 
@@ -34,7 +34,7 @@ The regular `index.html` shows the simplest configuration. We gennerate the butt
     ```html
     <script src="https://token.reepay.com/token.js"
         class="reepay-button"
-        data-pubkey="{{your_publickeyhere}}"
+        data-pubkey="your_publickey_here"
         data-text="Card information"
         data-locale="en"
     </script>
@@ -55,7 +55,7 @@ We know that some of our customers value the ability to customize stuff. So we m
 2. Instantiate the handler with a configure object. Here you can also bind callbacks. The `cardToken` is what will happen when you receive the token and the `ready` is if you want something to happen when our frame is ready to be opened. The bind of the click event listener is the binding to the open button so you can actually open our frame.
     ```js
         var handler = reepaytoken.configure({
-            key: '{{your_publickeyhere}}',
+            key: 'your_publickey_here',
             locale: 'da',
             cardToken: function(token) {
                 console.log(token);
