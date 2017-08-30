@@ -39,7 +39,7 @@ The regular `index.html` shows the simplest configuration. We gennerate the butt
         data-locale="en"
     </script>
     ```
-    You can omit the language if you want it in Danish.
+    You can omit the language if you want to use the English default.
 
 2. You're done! If you're simply posting a regular form, the value should be picked up as `reepay-token`
 
