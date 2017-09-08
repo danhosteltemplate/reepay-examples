@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reepay token subscription sign-up examle</title>
+    <style>
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Subscription</h2>
+    <p>Subscription product information here</p>
+    
+    <h2>Personal information</h2>
+    <form id="signupform" method="post" action="echo.php" onsubmit="alert('Hello world');">
+            <label>First name
+                <input type="text" name="first_name" required="required" placeholder="First name" autocomplete="given-name" />
+            </label>
+            <label>Last name 
+                    <input type="text" name="last_name" required="required" placeholder="Last name" autocomplete="family-name" />
+            </label>           
+            <label>Email
+                <input type="text" name="email" required="required" placeholder="Email" autocomplete="email"/>
+            </label>
+            <label>
+                    <input type="checkbox" id="terms"/>
+                    I accept
+                    <a href="#" data-toggle="modal" data-target="#myModal">the terms.</a>
+            </label>
+            
+            <script src="https://staging-token.reepay.com/token.js"
+            class="reepay-button"
+            data-pubkey="pub_11111111111111111111111111111111"
+            data-text="Sign-up"
+            data-language="en"
+            data-recurring="true"
+            data-baseurl="https://staging-token.reepay.com/">
+    </script>
+    </form>
+</body>
+</html>

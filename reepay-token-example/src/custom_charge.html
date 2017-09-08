@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reepay token one-time charge examle</title>
+    <style>
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Payment</h2>
+    <p>Order information here!</p>
+    
+    <form id="paymentform" method="post" action="echo.php" onsubmit="alert('Hello world');">
+            <script src="https://staging-token.reepay.com/token.js"
+            class="reepay-button"
+            data-pubkey="pub_11111111111111111111111111111111"
+            data-text="Pay with Card"
+            data-language="en"
+            data-recurring="false"
+            data-baseurl="https://staging-token.reepay.com/">
+    </script>
+    </form>
+</body>

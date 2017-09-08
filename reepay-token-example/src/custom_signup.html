@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reepay token subscription sign-up examle</title>
+    <style>
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+    </style>
+    <script src="https://staging-token.reepay.com/token.js"></script>
+</head>
+<body>
+    <h2>Subscription</h2>
+    <p>Subscription product information here</p>
+    
+    <h2>Personal information</h2>
+    <form id="signupform" method="post" action="echo.php" onsubmit="alert('Validation');">
+            <label>First name
+                <input type="text" name="first_name" required="required" placeholder="First name" autocomplete="given-name" />
+            </label>
+            <label>Last name 
+                    <input type="text" name="last_name" required="required" placeholder="Last name" autocomplete="family-name" />
+            </label>           
+            <label>Email
+                <input type="text" name="email" required="required" placeholder="Email" autocomplete="email"/>
+            </label>
+            <label>
+                    <input type="checkbox" id="terms"/>
+                    I accept
+                    <a href="#" data-toggle="modal" data-target="#myModal">the terms.</a>
+            </label>
+            
+            <input type="hidden" id="token" name="reepay-token"/>
+            <input type="submit" id="signup-button" disabled="disbaled" value="Sign-up"/>
+            
+    </form>
+    <script>
+        var handler = reepaytoken.configure({
+            key: 'pub_11111111111111111111111111111111',
+            locale: 'en',
+            cardToken: function(result) {
+                alert(JSON.stringify(result));
+                console.log(JSON.stringify(result));
+                document.querySelector('#token').value = result.token;''
+                // TODO: Validation how to
+                document.querySelector('#signupform').submit();
+            },
+            ready: function(){
+                //document.querySelector('#signup-button').removeAttribute('disabled');                
+                document.querySelector('#signup-button').removeAttribute('disabled');                
+            }
+        });
+
+        document.querySelector('#signup-button').addEventListener('click', function(event) {
+            // TODO how to perform validation
+
+            event.preventDefault();
+            handler.open();
+        });
+    </script>
+</body>
