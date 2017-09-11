@@ -33,7 +33,7 @@ public class ChargeExamples extends AbstractExamples implements Runnable {
         customer = readResponse(response, Customer.class);
         
         // Create a non-recurring token directly with the Reepay card API
-        // WARNING: This should always be done using Reepay.js in non-test cases.
+        // WARNING: This should always be done using Reepay Token or Reepay.js in non-test cases.
         String token = createToken("4111111111111111", "999", 12, 20, false);
         
         // Create a settled charge

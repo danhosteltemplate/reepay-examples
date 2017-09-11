@@ -17,7 +17,7 @@ public class SubscriptionExamples extends AbstractExamples implements Runnable {
     @Override
     public void run() {
         // Create a recurring token directly with the Reepay card API
-        // WARNING: This should always be done using Reepay.js in non-test cases.
+        // WARNING: This should always be done using Reepay Token or Reepay.js in non-test cases.
         String token = createToken("4111111111111111", "999", 12, 20, true);
 
         // Make sure there is a plan called gold

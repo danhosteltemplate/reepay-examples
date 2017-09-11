@@ -4,11 +4,11 @@ Project containing small samples demonstrating the use of the Reepay API and Jav
 
 The [Wiki](https://github.com/reepay/reepay-examples/wiki) gives some common use cases for Reepay.
 
-## Simple JS example
+## Reepay Token examples
 
-[`reepay-js-example-simple`](reepay-js-example-simple)
+[`reepay-token-example`](reepay-token-example)
 
-Simple example showing the use of the Reepay Javascript library to make a sign-up page.
+Examples showing the use of the Reepay Token solution to make payment and subscription sign-up pages.
 
 ## API examples
 
@@ -23,3 +23,9 @@ handling. See [Wiki](https://github.com/reepay/reepay-examples/wiki/Simple-subsc
 of use-cases.
 
 [`reepay-subscription-example`](reepay-subscription-example)
+
+## Simple JS example
+
+[`reepay-js-example-simple`](reepay-js-example-simple)
+
+Simple example showing the use of the Reepay Javascript library to make a sign-up page.
