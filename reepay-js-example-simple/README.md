@@ -4,6 +4,11 @@ Example project demonstrating the use of the Reepay Javascript library to make a
 
 The project contains a simple PHP web application served by a web server running in a Docker container. The sign-up page submits data to the server. The data can be used to create a customer and a subscription. See this [example](https://github.com/reepay/reepay-examples/wiki/Simple-subscription-handling#create-customer-and-subscription).
 
+Notice that the use of the Javascript library requires implementing a payment form and doing error validation. The solution also imposes higher PCI self-assesment requirements. We normally recommend to use the simpler Reepay Token solution. To read more about the two solutions see:
+
+  * [Reepay Token](https://docs.reepay.com/token/)
+  * [reepay.js](https://docs.reepay.com/js/)
+
 ## Prerequisites
 
 Docker and Docker Compose ([Docker Toolbox](https://www.docker.com/products/docker-toolbox))
@@ -28,6 +33,8 @@ A list of error codes can be found here: https://docs.reepay.com/js/#errors
 ## References
 
 [reepay.js](https://docs.reepay.com/js/)
+
+[Reepay Token](https://docs.reepay.com/token/)
 
 [Reepay API](https://docs.reepay.com/api/)
 
