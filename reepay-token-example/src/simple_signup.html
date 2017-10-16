@@ -18,16 +18,16 @@
     <h2>Personal information</h2>
     <form id="signupform" method="post" action="echo.php" onsubmit="console('Form validation code here');">
             <label>First name
-                <input type="text" name="first_name" placeholder="First name" autocomplete="given-name" />
+                <input type="text"  required="required" name="first_name" placeholder="First name" autocomplete="given-name" />
             </label>
             <label>Last name 
-                    <input type="text" name="last_name" placeholder="Last name" autocomplete="family-name" />
+                    <input type="text"  required="required" name="last_name" placeholder="Last name" autocomplete="family-name" />
             </label>           
             <label>Email
-                <input type="text" name="email" placeholder="Email" autocomplete="email"/>
+                <input type="email" required="required" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,}" name="email" placeholder="Email" autocomplete="email"/>
             </label>
             <label>
-                    <input type="checkbox" id="terms"/>
+                    <input type="checkbox" required="required" id="terms"/>
                     I accept
                     <a href="#" data-toggle="modal" data-target="#myModal">the terms.</a>
             </label>

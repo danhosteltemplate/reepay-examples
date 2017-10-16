@@ -25,27 +25,27 @@
                     <input type="text" name="last_name" required="required" placeholder="Last name" autocomplete="family-name" />
             </label>           
             <label>Email
-                <input type="text" name="email" required="required" placeholder="Email" autocomplete="email"/>
+                <input type="email" name="email" required="required" placeholder="Email" autocomplete="email" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,}"/>
             </label>
             <label>
-                    <input type="checkbox" id="terms"/>
+                    <input type="checkbox" id="terms" required="required"/>
                     I accept
                     <a href="#" data-toggle="modal" data-target="#myModal">the terms.</a>
             </label>
                         
             <input type="hidden" id="token" name="reepay-token"/>
+            <input type="submit" id="submit-form" style="display:none;"/>
             <button type="button" id="signup-button" disabled="disbaled">Sign-up</button>
     </form>
     <script>
+        var form = document.getElementById('signupform');
         var handler = reepaytoken.configure({
             key: 'pub_11111111111111111111111111111111',
             language: 'en',
             token: function(result) {
                 console.log(JSON.stringify(result));
                 document.querySelector('#token').value = result.token;
-                if (validate()) {
-                    document.getElementById('signupform').submit();
-                }
+                document.getElementById('submit-form').click();
             },
             ready: function(){
                 document.querySelector('#signup-button').removeAttribute('disabled');                
@@ -53,16 +53,21 @@
         });
 
         document.querySelector('#signup-button').addEventListener('click', function(event) {
-            if (validate()) {
+
+            var validated = true;
+            var elements = form.querySelectorAll("[required]");
+            for (i = 0; i < elements.length; i++) {
+                var valid = elements[i].checkValidity();
+                if (!valid) {
+                    validated = valid;
+                    form.querySelector('#submit-form').click();
+                    break;
+                }
+            }
+            if (validated) {
                 handler.open();
             }
         });
-
-        function validate() {
-            
-
-            return true;            
-        }
     </script>
 </body>
 </html>
