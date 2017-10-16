@@ -16,15 +16,15 @@
     <p>Subscription product information here</p>
     
     <h2>Personal information</h2>
-    <form id="signupform" method="post" action="echo.php" onsubmit="alert('Hello world');">
+    <form id="signupform" method="post" action="echo.php" onsubmit="console('Form validation code here');">
             <label>First name
-                <input type="text" name="first_name" required="required" placeholder="First name" autocomplete="given-name" />
+                <input type="text" name="first_name" placeholder="First name" autocomplete="given-name" />
             </label>
             <label>Last name 
-                    <input type="text" name="last_name" required="required" placeholder="Last name" autocomplete="family-name" />
+                    <input type="text" name="last_name" placeholder="Last name" autocomplete="family-name" />
             </label>           
             <label>Email
-                <input type="text" name="email" required="required" placeholder="Email" autocomplete="email"/>
+                <input type="text" name="email" placeholder="Email" autocomplete="email"/>
             </label>
             <label>
                     <input type="checkbox" id="terms"/>
@@ -32,13 +32,12 @@
                     <a href="#" data-toggle="modal" data-target="#myModal">the terms.</a>
             </label>
             
-            <script src="https://staging-token.reepay.com/token.js"
+            <script src="https://token.reepay.com/token.js"
             class="reepay-button"
             data-pubkey="pub_11111111111111111111111111111111"
             data-text="Sign-up"
             data-language="en"
-            data-recurring="true"
-            data-baseurl="https://staging-token.reepay.com/">
+            data-recurring="true">
     </script>
     </form>
 </body>

@@ -15,14 +15,13 @@
     <h2>Payment</h2>
     <p>Order information here!</p>
     
-    <form id="paymentform" method="post" action="echo.php" onsubmit="alert('Hello world');">
-            <script src="https://staging-token.reepay.com/token.js"
+    <form id="paymentform" method="post" action="echo.php" onsubmit="console('onsubmit');">
+            <script src="https://token.reepay.com/token.js"
             class="reepay-button"
             data-pubkey="pub_11111111111111111111111111111111"
             data-text="Pay with Card"
             data-language="en"
-            data-recurring="false"
-            data-baseurl="https://staging-token.reepay.com/">
+            data-recurring="false">
     </script>
     </form>
 </body>

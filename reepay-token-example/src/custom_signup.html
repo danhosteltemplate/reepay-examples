@@ -10,14 +10,14 @@
             margin-bottom: 10px;
         }
     </style>
-    <script src="https://staging-token.reepay.com/token.js"></script>
+    <script src="https://token.reepay.com/token.js"></script>
 </head>
 <body>
     <h2>Subscription</h2>
     <p>Subscription product information here</p>
     
     <h2>Personal information</h2>
-    <form id="signupform" method="post" action="echo.php" onsubmit="alert('Validation');">
+    <form id="signupform" method="post" action="echo.php">
             <label>First name
                 <input type="text" name="first_name" required="required" placeholder="First name" autocomplete="given-name" />
             </label>
@@ -32,21 +32,20 @@
                     I accept
                     <a href="#" data-toggle="modal" data-target="#myModal">the terms.</a>
             </label>
-            
+                        
             <input type="hidden" id="token" name="reepay-token"/>
-            <input type="submit" id="signup-button" disabled="disbaled" value="Sign-up"/>
-            
+            <button type="button" id="signup-button" disabled="disbaled">Sign-up</button>
     </form>
     <script>
         var handler = reepaytoken.configure({
             key: 'pub_11111111111111111111111111111111',
-            locale: 'en',
-            cardToken: function(result) {
-                alert(JSON.stringify(result));
+            language: 'en',
+            token: function(result) {
                 console.log(JSON.stringify(result));
-                document.querySelector('#token').value = result.token;''
-                // TODO: Validation how to
-                //document.querySelector('#signupform').submit();
+                document.querySelector('#token').value = result.token;
+                if (validate()) {
+                    document.getElementById('signupform').submit();
+                }
             },
             ready: function(){
                 document.querySelector('#signup-button').removeAttribute('disabled');                
@@ -54,10 +53,15 @@
         });
 
         document.querySelector('#signup-button').addEventListener('click', function(event) {
-            // TODO how to perform validation
-
-            event.preventDefault();
-            handler.open();
+            if (validate()) {
+                handler.open();
+            }
         });
+
+        function validate() {
+            
+
+            return true;            
+        }
     </script>
 </body>

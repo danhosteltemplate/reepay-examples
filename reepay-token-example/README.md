@@ -4,7 +4,7 @@ Example project demonstrating the use of the [Reepay Token](https://docs.reepay.
 
 The project contains some example payment and subscription sign-up pages. All the pages submit data to a simple PHP web application served by a web server running in a Docker container. The PHP application just dumps the parameters received. 
 
-The paramters can be used to perform a single charge, see this [example](https://github.com/reepay/reepay-examples/wiki/One-time-charging). Or it can be used to create a customer and a subscription, see this [example](https://github.com/reepay/reepay-examples/wiki/Simple-subscription-handling#create-customer-and-subscription).
+The paramters can be used to perform a single charge, see this [example](https://github.com/reepay/reepay-examples/wiki/One-time-charging). Or it can be used to create a subscription, see this [example](https://github.com/reepay/reepay-examples/wiki/Simple-subscription-handling#create-customer-and-subscription).
 
 ## Prerequisites
 
@@ -12,7 +12,7 @@ Docker and Docker Compose ([Docker Toolbox](https://www.docker.com/products/dock
 
 ## Running
 
-1. Define the public key by substituting `your_publickey_here` in the HTML files. A public key can be found/generated in the Reepay Administration under Developer -> API credentials.
+1. Define the public key by substituting `pub_11111111111111111111111111111111` in the HTML files. A public key can be found/generated in the Reepay Administration under Developer -> API credentials.
 
 2. Run a containerized web server using Docker Compose:
 
@@ -33,7 +33,7 @@ The regular `index.html` shows the simplest configuration. We gennerate the butt
     ```html
     <script src="https://token.reepay.com/token.js"
         class="reepay-button"
-        data-pubkey="your_publickey_here"
+        data-pubkey="pub_11111111111111111111111111111111"
         data-text="Sign-up"
         data-language="en"
     </script>
@@ -59,9 +59,9 @@ We know that some of our customers value the ability to customize stuff. So we m
         </form>
         <script>
         var handler = reepaytoken.configure({
-            key: 'your_publickey_here',
+            key: 'pub_11111111111111111111111111111111',
             language: 'da',
-            cardToken: function(result) {
+            token: function(result) {
                 console.log(JSON.stringify(result));
                 document.querySelector('#token').value = result.token;
             },
