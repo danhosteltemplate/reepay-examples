@@ -10,19 +10,74 @@
             margin-bottom: 10px;
         }
     </style>
+    <script src="https://token.reepay.com/token.js"></script>
 </head>
 <body>
     <h2>Payment</h2>
     <p>Order information here!</p>
     
-    <form id="paymentform" method="post" action="echo.php" onsubmit="console('onsubmit');">
-            <script src="https://token.reepay.com/token.js"
-            class="reepay-button"
-            data-pubkey="pub_11111111111111111111111111111111"
-            data-text="Pay with Card"
-            data-language="en"
-            data-recurring="false">
-    </script>
+    <form id="purchase-form" method="post" action="echo.php">
+        <label>First name
+                <input type="text"  required name="first_name" placeholder="First name" autocomplete="given-name" />
+            </label>
+            <label>Last name 
+                    <input type="text"  required name="last_name" placeholder="Last name" autocomplete="family-name" />
+            </label>
+            <h3>Delivery address</h3>
+            <label> Address
+                <input type="text" placeholder="Address" name="address" required />
+            </label>
+            <label> Zipcode
+                <input type="text" placeholder="Zipcode" name="zicode" required />
+            </label>
+            <label> City
+                <input type="text" placeholder="City" name="city" required />
+            </label>
+            <label>Email
+                <input type="email" required pattern="[^@]+@[^@]+\.[a-zA-Z]{2,}" name="email" placeholder="Email" autocomplete="email"/>
+            </label>
+            <label>
+                    <input type="checkbox" required id="terms"/>
+                    I accept
+                    <a href="#" data-toggle="modal" data-target="#myModal">the terms.</a>
+            </label>
+            <input type="hidden" id="token" name="reepay-token"/>
+            <input type="submit" id="submit-form" style="display:none;"/>
+            <button type="button" id="purchase-button" disabled="disbaled">Sign-up</button>
     </form>
+
+        <script>
+        var form = document.getElementById('purchase-form');
+        var handler = reepaytoken.configure({
+            key: 'pub_11111111111111111111111111111111',
+            language: 'en',
+            recurring: false,
+            token: function(result) {
+                console.log(JSON.stringify(result));
+                document.querySelector('#token').value = result.token;
+                document.getElementById('submit-form').click();
+            },
+            ready: function(){
+                document.querySelector('#purchase-button').removeAttribute('disabled');                
+            }
+        });
+
+        document.querySelector('#purchase-button').addEventListener('click', function(event) {
+
+            var validated = true;
+            var elements = form.querySelectorAll("[required]");
+            for (i = 0; i < elements.length; i++) {
+                var valid = elements[i].checkValidity();
+                if (!valid) {
+                    validated = valid;
+                    form.querySelector('#submit-form').click();
+                    break;
+                }
+            }
+            if (validated) {
+                handler.open();
+            }
+        });
+    </script>
 </body>
 </html>

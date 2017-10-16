@@ -14,8 +14,34 @@
 <body>
     <h2>Payment</h2>
     <p>Order information here!</p>
+
+    <form id="purchase-form" method="post" action="echo.php">
+        <h3>Personal information</h3>
+            <label>First name
+                <input type="text"  required name="first_name" placeholder="First name" autocomplete="given-name" />
+            </label>
+            <label>Last name 
+                    <input type="text"  required name="last_name" placeholder="Last name" autocomplete="family-name" />
+            </label>
+            <h3>Delivery address</h3>
+            <label> Address
+                <input type="text" placeholder="Address" name="address" required />
+            </label>
+            <label> Zipcode
+                <input type="text" placeholder="Zipcode" name="zicode" required />
+            </label>
+            <label> City
+                <input type="text" placeholder="City" name="city" required />
+            </label>
+            <label>Email
+                <input type="email" required pattern="[^@]+@[^@]+\.[a-zA-Z]{2,}" name="email" placeholder="Email" autocomplete="email"/>
+            </label>
+            <label>
+                    <input type="checkbox" required id="terms"/>
+                    I accept
+                    <a href="#" data-toggle="modal" data-target="#myModal">the terms.</a>
+            </label>
     
-    <form id="paymentform" method="post" action="echo.php" onsubmit="console('onsubmit');">
             <script src="https://token.reepay.com/token.js"
                 class="reepay-button"
                 data-pubkey="pub_11111111111111111111111111111111"
