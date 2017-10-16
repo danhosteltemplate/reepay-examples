@@ -52,7 +52,7 @@ We know that some of our customers value the ability to customize stuff. So we m
     ```
 2. Instantiate the handler with a configure object. Here you can also bind callbacks. The `token` is what will happen when you receive the token and the `ready` is if you want something to happen when our frame is ready to be opened. The bind of the click event listener is the binding to the open button so you can actually open our frame.
     ```html
-        <form>
+        <form id="signupform">
             <input type="hidden" id="token" name="reepay-token"/>
             <input type="submit" id="signup-button" disabled="disbaled" value="Sign-up"/>
         </form>
@@ -63,6 +63,7 @@ We know that some of our customers value the ability to customize stuff. So we m
             token: function(result) {
                 console.log(JSON.stringify(result));
                 document.querySelector('#token').value = result.token;
+                document.getElementById('signupform').submit();
             },
             ready: function(){
                 document.querySelector('#signup-button').removeAttribute('disabled');
