@@ -4,7 +4,7 @@ Project containing small samples demonstrating the use of the Reepay API, Reepay
 
 The [Wiki](https://github.com/reepay/reepay-examples/wiki) gives some common use cases for Reepay.
 
-## Reepay Token examples
+## Reepay Token example
 
 [`reepay-token-example`](reepay-token-example)
 
