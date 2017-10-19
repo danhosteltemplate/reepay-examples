@@ -65,8 +65,11 @@ We know that some of our customers value the ability to customize stuff. So we m
                 document.querySelector('#token').value = result.token;
                 document.getElementById('signupform').submit();
             },
-            ready: function(){
+            ready: function() {
                 document.querySelector('#signup-button').removeAttribute('disabled');
+            },
+            close: function() {
+                console.log('Modal closed');
             }
         });
         document.querySelector('#signup-button').addEventListener('click', function(event) {

@@ -47,13 +47,15 @@
                 document.querySelector('#token').value = result.token;
                 document.getElementById('submit-form').click();
             },
-            ready: function(){
+            ready: function() {
                 document.querySelector('#signup-button').removeAttribute('disabled');                
+            },
+            close: function() {
+                console.log('modal closed');
             }
         });
 
         document.querySelector('#signup-button').addEventListener('click', function(event) {
-
             var validated = true;
             var elements = form.querySelectorAll("[required]");
             for (i = 0; i < elements.length; i++) {
